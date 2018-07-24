@@ -274,6 +274,56 @@ Ext.onReady(function() {
                             {xtype: 'splitter'},
                             {xtype: 'displayfield',itemId: "HEART_TIPS",name: "HEART_TIPS",fieldLabel: '提示',value: '<span style="color: red"></span>',width:1000}
                         ]
+                    },{xtype: 'splitter'},{
+                        xtype: 'fieldset',
+                        collapsible: false,
+                        title: 'NTP服务器',
+                        layout: 'column',
+                        defaults: {
+                            anchor: '100%'
+                        },
+                        items: [
+                            {itemId: "NTPSERVER",name: "NTPSERVER",xtype: "textfield",fieldLabel: "服务器地址",width:650},
+                            {
+                                xtype: "button",
+                                iconCls: 'icon-accept',
+                                text: "保存并生效",
+                                tooltip: '保存并生效',
+                                style: {marginLeft: '5px'},
+                                handler:function()
+                                {
+                                    var form = this.up("form").getForm();
+                                    var formValues=form.getValues(); //获取表单中的所有Name键/值对对象
+
+                                    Ext.Ajax.request({
+                                        url: "ntp.cgi",
+                                        method:'POST',
+                                        dataType:'json',
+                                        headers: {'Content-Type':'application/json;charset=utf-8'},
+                                        jsonData:JSON.stringify({
+                                            NTPSERVER:formValues["NTPSERVER"],
+                                            SESSIONID : Ext.util.Cookies.get("SESSIONID")
+                                        }),
+                                        success: function(I) {
+                                            var json = Ext.JSON.decode(I.responseText);
+                                            if (json.STATUS == 'OK') {
+                                                mainForm.getForm().setValues({NTP_TIPS : '<span style="color: blue">'+json.INFO+'</span>'});
+                                            } else if(json.STATUS == 'TIMEOUT')
+                                            {
+                                                window.location.href="login.html";
+                                            } else {
+                                                mainForm.getForm().setValues({NTP_TIPS : '<span style="color: red">'+json.INFO+'</span>'});
+                                            }
+                                        },
+                                        failure: function(I) {
+                                            mainForm.getForm().setValues({NTP_TIPS : '<span style="color: red">保存NTP服务器信息失败，请联系管理员</span>'});
+                                        }
+                                    });
+                                }
+                            },
+                            {xtype: 'splitter'},
+                            {xtype: 'displayfield',itemId: "NTP_TIPS",name: "NTP_TIPS",fieldLabel: '提示',value: '<span style="color: red"></span>',width:1000}
+                        ]
                     },{xtype: 'splitter'},
                     {
                         xtype: 'fieldset',
@@ -430,14 +480,44 @@ Ext.onReady(function() {
             xtype: 'toolbar',
             items: [
                 {
-                text: '退出登录',
-                tooltip:'清空登陆信息',
-                iconCls : 'icon-shutdown',
-                handler: function() {
-                    Ext.util.Cookies.set("SESSIONID",'');
-                    window.location.href="login.html";
+                    text: '重启盒子',
+                    tooltip:'重新启动盒子',
+                    iconCls : 'icon-reload',
+                    handler: function() {
+                        Ext.Ajax.request({
+                            url: "reboot.cgi",
+                            method:'POST',
+                            dataType:'json',
+                            headers: {'Content-Type':'application/json;charset=utf-8'},
+                            jsonData:JSON.stringify({
+                                SESSIONID : Ext.util.Cookies.get("SESSIONID")
+                            }),
+                            success: function(I) {
+                                var json = Ext.JSON.decode(I.responseText);
+                                if (json.STATUS == 'OK') {
+                                    Ext.Msg.alert("提示",json.INFO,title);
+                                } else if(json.STATUS == 'TIMEOUT')
+                                {
+                                    window.location.href="login.html";
+                                } else {
+                                    Ext.Msg.alert("提示",'未知错误，请联系管理员');
+                                }
+                            },
+                            failure: function(I) {
+                                Ext.Msg.alert("提示",'重启盒子失败，请联系管理员');
+                            }
+                        });
+                    }
+                },{
+                    text: '退出登录',
+                    tooltip:'清空登陆信息',
+                    iconCls : 'icon-shutdown',
+                    handler: function() {
+                        Ext.util.Cookies.set("SESSIONID",'');
+                        window.location.href="login.html";
+                    }
                 }
-            }]
+            ]
         }
     });
 
@@ -446,7 +526,7 @@ Ext.onReady(function() {
     Ext.Ajax.request({
         async: false,   //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
         url: "hostip.cgi",
-        // url: "hostip.cgi.json",
+         // url: "hostip.cgi.json",
         method:'GET',
         params: {
             SESSIONID : Ext.util.Cookies.get("SESSIONID")
@@ -565,6 +645,33 @@ Ext.onReady(function() {
         },
         failure: function(I) {
             mainForm.getForm().setValues({HEART_TIPS : '<span style="color: red">获取心跳信息失败，请联系管理员</span>'});
+        }
+    });
+
+    //初始化NTP服务器信息
+    Ext.Ajax.request({
+        url: "ntp.cgi",
+        // url: "ntp.cgi.json",
+        method:'GET',
+        params: {
+            SESSIONID : Ext.util.Cookies.get("SESSIONID")
+        },
+        success: function(html) {
+            var json = Ext.JSON.decode(html.responseText);
+            if (json.STATUS == 'OK') {
+                mainForm.getForm().setValues({
+                    NTPSERVER:json.INFO.NTPSERVER
+                });
+                mainForm.getForm().setValues({NTP_TIPS : '<span style="color: blue"></span>'});
+            } else if(json.STATUS == 'TIMEOUT')
+            {
+                window.location.href="login.html";
+            } else {
+                mainForm.getForm().setValues({NTP_TIPS : '<span style="color: red">'+json.msg+'</span>'});
+            }
+        },
+        failure: function(I) {
+            mainForm.getForm().setValues({NTP_TIPS : '<span style="color: red">获取NTP服务器信息失败，请联系管理员</span>'});
         }
     });
 

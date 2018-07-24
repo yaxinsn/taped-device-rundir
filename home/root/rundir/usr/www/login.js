@@ -15,7 +15,7 @@ Ext.onReady(function() {
             xtype : 'tabpanel',
             id : 'loginTabs',
             activeTab : 0,
-            height : 140,
+            height : 160,
             border : false,
             items:[{
                 title : "身份认证",
