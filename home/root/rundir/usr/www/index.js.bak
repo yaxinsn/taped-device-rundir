@@ -660,7 +660,7 @@ Ext.onReady(function() {
             var json = Ext.JSON.decode(html.responseText);
             if (json.STATUS == 'OK') {
                 mainForm.getForm().setValues({
-                    NTPSERVER:json.NTPSERVER.NTPSERVER
+                    NTPSERVER:json.INFO.NTPSERVER
                 });
                 mainForm.getForm().setValues({NTP_TIPS : '<span style="color: blue"></span>'});
             } else if(json.STATUS == 'TIMEOUT')
