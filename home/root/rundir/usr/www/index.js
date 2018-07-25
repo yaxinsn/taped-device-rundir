@@ -69,8 +69,8 @@ Ext.onReady(function() {
                             {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
-                                text: "保存并生效",
-                                tooltip: '保存并生效',
+                                text: "保存",
+                                tooltip: '保存',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -124,8 +124,8 @@ Ext.onReady(function() {
                             {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
-                                text: "保存并生效",
-                                tooltip: '保存并生效',
+                                text: "保存",
+                                tooltip: '保存',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -180,8 +180,8 @@ Ext.onReady(function() {
                             {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
-                                text: "保存并生效",
-                                tooltip: '保存并生效',
+                                text: "保存",
+                                tooltip: '保存',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -236,8 +236,8 @@ Ext.onReady(function() {
                             {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
-                                text: "保存并生效",
-                                tooltip: '保存并生效',
+                                text: "保存",
+                                tooltip: '保存',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -287,8 +287,8 @@ Ext.onReady(function() {
                             {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
-                                text: "保存并生效",
-                                tooltip: '保存并生效',
+                                text: "保存",
+                                tooltip: '保存',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -395,8 +395,8 @@ Ext.onReady(function() {
                             {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
-                                text: "保存并生效",
-                                tooltip: '保存并生效',
+                                text: "保存",
+                                tooltip: '保存',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
