@@ -33,7 +33,14 @@ else
 	if json_data["HOSTIP"]["SESSIONID"] ~= nil then
 		json_data["HOSTIP"]["SESSIONID"]=nil;
 	end
-	json_data["HOSTIP"]["MAC"] = "00:22:33:44:55:66"
+
+	local myfile = io.open("/sys/class/net/eth0/address", "r");
+
+	mac=myfile:read();
+	myfile:close();
+
+	my_log("--------  "..mac.."  is end");
+	json_data["HOSTIP"]["MAC"] = mac;
 	json_http_resp(json_data);
 	my_log("-get-is end");
 	bak_log("get.hostip.cgi.log");
