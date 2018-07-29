@@ -70,7 +70,7 @@ Ext.onReady(function() {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
                                 text: "保存",
-                                tooltip: '保存',
+                                tooltip: '保存（重启后生效）',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -125,7 +125,7 @@ Ext.onReady(function() {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
                                 text: "保存",
-                                tooltip: '保存',
+                                tooltip: '保存（重启后生效）',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -181,7 +181,7 @@ Ext.onReady(function() {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
                                 text: "保存",
-                                tooltip: '保存',
+                                tooltip: '保存（重启后生效）',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -237,7 +237,7 @@ Ext.onReady(function() {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
                                 text: "保存",
-                                tooltip: '保存',
+                                tooltip: '保存（重启后生效）',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -288,7 +288,7 @@ Ext.onReady(function() {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
                                 text: "保存",
-                                tooltip: '保存',
+                                tooltip: '保存（重启后生效）',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -396,7 +396,7 @@ Ext.onReady(function() {
                                 xtype: "button",
                                 iconCls: 'icon-accept',
                                 text: "保存",
-                                tooltip: '保存',
+                                tooltip: '保存（重启后生效）',
                                 style: {marginLeft: '5px'},
                                 handler:function()
                                 {
@@ -475,13 +475,14 @@ Ext.onReady(function() {
         //             }
         //         }]
         // },
-        bbar: {
+        tbar: {
             dock: 'bottom',
             xtype: 'toolbar',
             items: [
                 {
-                    text: '重启盒子',
-                    tooltip:'重新启动盒子',
+                    text: '重启设备',
+                    tooltip:'重新启动设备',
+                    scale: 'medium',
                     iconCls : 'icon-reload',
                     handler: function() {
                         Ext.Ajax.request({
@@ -504,13 +505,14 @@ Ext.onReady(function() {
                                 }
                             },
                             failure: function(I) {
-                                Ext.Msg.alert("提示",'重启盒子失败，请联系管理员');
+                                Ext.Msg.alert("提示",'重启设备失败，请联系管理员');
                             }
                         });
                     }
                 },{
                     text: '退出登录',
                     tooltip:'清空登陆信息',
+                    scale: 'medium',
                     iconCls : 'icon-shutdown',
                     handler: function() {
                         Ext.util.Cookies.set("SESSIONID",'');
@@ -660,7 +662,7 @@ Ext.onReady(function() {
             var json = Ext.JSON.decode(html.responseText);
             if (json.STATUS == 'OK') {
                 mainForm.getForm().setValues({
-                    NTPSERVER:json.INFO.NTPSERVER
+                    NTPSERVER:json.NTPSERVER.NTPSERVER
                 });
                 mainForm.getForm().setValues({NTP_TIPS : '<span style="color: blue"></span>'});
             } else if(json.STATUS == 'TIMEOUT')
