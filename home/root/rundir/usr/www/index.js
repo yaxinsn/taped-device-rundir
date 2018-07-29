@@ -57,6 +57,7 @@ Ext.onReady(function() {
                         title: '盒子信息',
                         //defaultType: 'textfield',
                         layout: 'column',
+						width:1000,
                         defaults: {
                             anchor: '100%'
                         },
@@ -115,6 +116,7 @@ Ext.onReady(function() {
                         collapsible: false,
                         title: '呼叫中心信息',
                         layout: 'column',
+						width:1000,
                         defaults: {
                             anchor: '100%'
                         },
@@ -168,6 +170,7 @@ Ext.onReady(function() {
                         collapsible: false,
                         title: '录音服务器',
                         layout: 'column',
+						width:1000,
                         defaults: {
                             anchor: '100%'
                         },
@@ -226,6 +229,7 @@ Ext.onReady(function() {
                         collapsible: false,
                         title: '心跳参数',
                         layout: 'column',
+						width:1000,
                         defaults: {
                             anchor: '100%'
                         },
@@ -279,6 +283,7 @@ Ext.onReady(function() {
                         collapsible: false,
                         title: 'NTP服务器',
                         layout: 'column',
+						width:1000,
                         defaults: {
                             anchor: '100%'
                         },
@@ -330,6 +335,7 @@ Ext.onReady(function() {
                         collapsible: false,
                         title: '其他信息',
                         layout: 'column',
+						width:1000,
                         defaults: {
                             anchor: '100%'
                         },
@@ -528,7 +534,7 @@ Ext.onReady(function() {
     Ext.Ajax.request({
         async: false,   //ASYNC 是否异步( TRUE 异步 , FALSE 同步)
         url: "hostip.cgi",
-         // url: "hostip.cgi.json",
+        // url: "hostip.cgi.json",
         method:'GET',
         params: {
             SESSIONID : Ext.util.Cookies.get("SESSIONID")
