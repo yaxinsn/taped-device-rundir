@@ -19,7 +19,7 @@ if method == "POST" then
 	os.execute("echo I reboot >>/etc/reboot.xxxx");	
 	bak_log("reboot.log");
 
-	os.execute("/sbin/reboot -f ");	
+	os.execute("sleep 5 && /sbin/reboot ");	
 else
 
 	json_data = {};
