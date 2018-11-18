@@ -20,6 +20,6 @@ if [ -e /etc/dropbear ];then
 
 else
 mkdir /etc/dropbear
-dropbear/dropbearkey  -t rsa -f /etc/dropbear/dropbear_rsa_host_key
+dropbearkey  -t rsa -f /etc/dropbear/dropbear_rsa_host_key
 fi
 dropbear &
